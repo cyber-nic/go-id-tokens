@@ -28,11 +28,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	alphabet := "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 	generators := []func(){
 		func() { gen("shortid", cnt, func() string { id, _ := sid.Generate(); return id }) },
+		func() { gen("nanoid", cnt, func() string { id, _ := gonanoid.Generate(alphabet, 10); return id }) },
 		func() { gen("snowflake", cnt, func() string { return node.Generate().String() }) },
 		func() { gen("xid", cnt, func() string { return xid.New().String() }) },
-		func() { gen("nanoid", cnt, func() string { id, _ := gonanoid.New(); return id }) },
 		func() { gen("ksuid", cnt, func() string { return ksuid.New().String() }) },
 		func() { gen("uuid", cnt, func() string { return uuid.New().String() }) },
 	}
